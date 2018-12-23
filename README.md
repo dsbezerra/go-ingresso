@@ -1,4 +1,4 @@
-# ingresso
+# go-ingresso
 
 A Go wrapper for the API of [Ingresso.com](https://www.ingresso.com/).
 
