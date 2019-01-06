@@ -59,6 +59,15 @@ type EventsResult struct {
 	Count int     `json:"count"`
 }
 
+// GetEvents gets all events available
+// https://api-content.ingresso.com/v0/swagger/ui/index#!/Events/Events_GetAsync
+func (ing *Ingresso) GetEvents() (*EventsResult, error) {
+	var eventsResult EventsResult
+	url := fmt.Sprintf("%sevents/partnership/%s", ing.BaseURL, ing.Partnership)
+	_, err := ing.getIngresso(url, &eventsResult)
+	return &eventsResult, err
+}
+
 // GetEvent gets a single event
 // https://api-content.ingresso.com/v0/swagger/ui/index#!/Events/Events_Get
 func (ing *Ingresso) GetEvent(id string) (*Event, error) {
@@ -75,15 +84,6 @@ func (ing *Ingresso) GetEventByURLKey(urlKey string) (*Event, error) {
 	url := fmt.Sprintf("%sevents/url-key/%s/partnership/%s", ing.BaseURL, urlKey, ing.Partnership)
 	_, err := ing.getIngresso(url, &event)
 	return &event, err
-}
-
-// GetEvents gets all events available
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Events/Events_GetAsync
-func (ing *Ingresso) GetEvents() (*EventsResult, error) {
-	var eventsResult EventsResult
-	url := fmt.Sprintf("%sevents/partnership/%s", ing.BaseURL, ing.Partnership)
-	_, err := ing.getIngresso(url, &eventsResult)
-	return &eventsResult, err
 }
 
 // GetComingSoonEvents gets coming soon events available
