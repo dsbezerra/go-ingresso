@@ -63,7 +63,7 @@ type TheatersResult struct {
 func (ing *Ingresso) GetTheater(id string) (*Theater, error) {
 	var theater Theater
 	url := fmt.Sprintf("%stheaters/%s/partnership/%s", ing.BaseURL, id, ing.Partnership)
-	_, err := ing.GetIngresso(url, &theater)
+	_, err := ing.getIngresso(url, &theater)
 	return &theater, err
 }
 
@@ -72,7 +72,7 @@ func (ing *Ingresso) GetTheater(id string) (*Theater, error) {
 func (ing *Ingresso) GetTheaterByURLKey(urlKey string) (*Theater, error) {
 	var theater Theater
 	url := fmt.Sprintf("%stheaters/url-key/%s/partnership/%s", ing.BaseURL, urlKey, ing.Partnership)
-	_, err := ing.GetIngresso(url, &theater)
+	_, err := ing.getIngresso(url, &theater)
 	return &theater, err
 }
 
@@ -81,7 +81,7 @@ func (ing *Ingresso) GetTheaterByURLKey(urlKey string) (*Theater, error) {
 func (ing *Ingresso) GetTheaters() (*TheatersResult, error) {
 	var theatersResult TheatersResult
 	url := fmt.Sprintf("%stheaters/partnership/%s", ing.BaseURL, ing.Partnership)
-	_, err := ing.GetIngresso(url, &theatersResult)
+	_, err := ing.getIngresso(url, &theatersResult)
 	return &theatersResult, err
 }
 
@@ -90,6 +90,6 @@ func (ing *Ingresso) GetTheaters() (*TheatersResult, error) {
 func (ing *Ingresso) GetTheatersByCity(city string) (*TheatersResult, error) {
 	var theatersResult TheatersResult
 	url := fmt.Sprintf("%stheaters/city/%s/partnership/%s", ing.BaseURL, city, ing.Partnership)
-	_, err := ing.GetIngresso(url, &theatersResult)
+	_, err := ing.getIngresso(url, &theatersResult)
 	return &theatersResult, err
 }

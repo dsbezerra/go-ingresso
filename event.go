@@ -64,7 +64,7 @@ type EventsResult struct {
 func (ing *Ingresso) GetEvent(id string) (*Event, error) {
 	var event Event
 	url := fmt.Sprintf("%sevents/%s/partnership/%s", ing.BaseURL, id, ing.Partnership)
-	_, err := ing.GetIngresso(url, &event)
+	_, err := ing.getIngresso(url, &event)
 	return &event, err
 }
 
@@ -73,7 +73,7 @@ func (ing *Ingresso) GetEvent(id string) (*Event, error) {
 func (ing *Ingresso) GetEventByURLKey(urlKey string) (*Event, error) {
 	var event Event
 	url := fmt.Sprintf("%sevents/url-key/%s/partnership/%s", ing.BaseURL, urlKey, ing.Partnership)
-	_, err := ing.GetIngresso(url, &event)
+	_, err := ing.getIngresso(url, &event)
 	return &event, err
 }
 
@@ -82,24 +82,24 @@ func (ing *Ingresso) GetEventByURLKey(urlKey string) (*Event, error) {
 func (ing *Ingresso) GetEvents() (*EventsResult, error) {
 	var eventsResult EventsResult
 	url := fmt.Sprintf("%sevents/partnership/%s", ing.BaseURL, ing.Partnership)
-	_, err := ing.GetIngresso(url, &eventsResult)
+	_, err := ing.getIngresso(url, &eventsResult)
 	return &eventsResult, err
 }
 
 // GetComingSoonEvents gets coming soon events available
 // https://api-content.ingresso.com/v0/swagger/ui/index#!/Events/Events_GetComingSoonAsync
-func (ing *Ingresso) GetComingSoonEvents(limit int) (*EventsResult, error) {
+func (ing *Ingresso) GetComingSoonEvents(options ...func(*QueryOptions)) (*EventsResult, error) {
 	var eventsResult EventsResult
-	url := fmt.Sprintf("%sevents/coming-soon/partnership/%s?limit=%d", ing.BaseURL, ing.Partnership, limit)
-	_, err := ing.GetIngresso(url, &eventsResult)
+	url := fmt.Sprintf("%sevents/coming-soon/partnership/%s", ing.BaseURL, ing.Partnership)
+	_, err := ing.getIngresso(url, &eventsResult, options...)
 	return &eventsResult, err
 }
 
 // GetEventsByCity gets all events available
 // https://api-content.ingresso.com/v0/swagger/ui/index#!/Events/Events_GetByCityAsync
-func (ing *Ingresso) GetEventsByCity(city string, limit int) (*EventsResult, error) {
+func (ing *Ingresso) GetEventsByCity(city string, options ...func(*QueryOptions)) (*EventsResult, error) {
 	var eventsResult EventsResult
-	url := fmt.Sprintf("%sevents/city/%s/partnership/%s?limit=%d", ing.BaseURL, city, ing.Partnership, limit)
-	_, err := ing.GetIngresso(url, &eventsResult)
+	url := fmt.Sprintf("%sevents/city/%s/partnership/%s", ing.BaseURL, city, ing.Partnership)
+	_, err := ing.getIngresso(url, &eventsResult, options...)
 	return &eventsResult, err
 }

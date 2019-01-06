@@ -19,6 +19,6 @@ type Tag struct {
 func (ing *Ingresso) GetTags() ([]Tag, error) {
 	var tags []Tag
 	url := fmt.Sprintf("%stags/getAllTags", ing.BaseURL)
-	_, err := ing.GetIngresso(url, &tags)
+	_, err := ing.getIngresso(url, &tags)
 	return tags, err
 }

@@ -26,7 +26,7 @@ type City struct {
 func (ing *Ingresso) GetStates() ([]State, error) {
 	var states []State
 	url := fmt.Sprintf("%sstates", ing.BaseURL)
-	_, err := ing.GetIngresso(url, &states)
+	_, err := ing.getIngresso(url, &states)
 	return states, err
 }
 
@@ -35,7 +35,7 @@ func (ing *Ingresso) GetStates() ([]State, error) {
 func (ing *Ingresso) GetState(uf string) (*State, error) {
 	var state State
 	url := fmt.Sprintf("%sstates/%s", ing.BaseURL, uf)
-	_, err := ing.GetIngresso(url, &state)
+	_, err := ing.getIngresso(url, &state)
 	return &state, err
 }
 
@@ -44,7 +44,7 @@ func (ing *Ingresso) GetState(uf string) (*State, error) {
 func (ing *Ingresso) GetCity(id string) (*City, error) {
 	var city City
 	url := fmt.Sprintf("%sstates/city/%s", ing.BaseURL, id)
-	_, err := ing.GetIngresso(url, &city)
+	_, err := ing.getIngresso(url, &city)
 	return &city, err
 }
 
@@ -53,6 +53,6 @@ func (ing *Ingresso) GetCity(id string) (*City, error) {
 func (ing *Ingresso) GetCityURLKey(urlKey string) (*City, error) {
 	var city City
 	url := fmt.Sprintf("%sstates/city/name/%s", ing.BaseURL, urlKey)
-	_, err := ing.GetIngresso(url, &city)
+	_, err := ing.getIngresso(url, &city)
 	return &city, err
 }

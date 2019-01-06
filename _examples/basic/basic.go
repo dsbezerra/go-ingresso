@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/dsbezerra/ingresso.com/ingresso"
+	"github.com/dsbezerra/go-ingresso/ingresso"
 )
 
 func main() {

@@ -3,9 +3,11 @@ package ingresso
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 const (
@@ -27,6 +29,9 @@ type (
 		URL  string `json:"url"`
 		Type string `json:"type"`
 	}
+
+	// QueryOptions map used to build query strings
+	QueryOptions map[string]interface{}
 )
 
 // New allocates and initializes a new Ingresso instance.
@@ -49,8 +54,79 @@ func Partnership(p string) func(*Ingresso) {
 	}
 }
 
-// GetIngresso performs a GET request to Ingresso's API.
-func (ing *Ingresso) GetIngresso(url string, data interface{}) (interface{}, error) {
+// Date sets the date (in format YYYY-MM-DD) query option
+func Date(date string) func(*QueryOptions) {
+	return func(opts *QueryOptions) {
+		(*opts)["date"] = date
+	}
+}
+
+// TheaterIDs sets the theaterIds query option
+func TheaterIDs(IDs ...string) func(*QueryOptions) {
+	return func(opts *QueryOptions) {
+		(*opts)["theaterIds"] = strings.Join(IDs, ",")
+	}
+}
+
+// JustEvents sets the justEvents query option
+func JustEvents(justEvents bool) func(*QueryOptions) {
+	return func(opts *QueryOptions) {
+		(*opts)["justEvents"] = justEvents
+	}
+}
+
+// Limit sets the limit query option
+func Limit(limit int) func(*QueryOptions) {
+	return func(opts *QueryOptions) {
+		(*opts)["limit"] = limit
+	}
+}
+
+// Skip sets the skip query option
+func Skip(skip int) func(*QueryOptions) {
+	return func(opts *QueryOptions) {
+		(*opts)["skip"] = skip
+	}
+}
+
+// ToJSON converts data from struct to JSON
+func ToJSON(data interface{}) (string, error) {
+	r := []byte("{}")
+	r, err := json.MarshalIndent(data, "", "  ")
+	return string(r), err
+}
+
+// builds a query string from the given options
+func buildQuery(options ...func(*QueryOptions)) string {
+	if len(options) == 0 {
+		return ""
+	}
+
+	opts := QueryOptions{}
+
+	for _, f := range options {
+		f(&opts)
+	}
+
+	var b strings.Builder
+	for param, value := range opts {
+		b.WriteString(fmt.Sprintf("&%s=%v", param, value))
+	}
+
+	return b.String()
+}
+
+// calls Ingresso's API
+func (ing *Ingresso) getIngresso(url string, data interface{}, options ...func(*QueryOptions)) (interface{}, error) {
+	query := buildQuery(options...)
+	if query != "" {
+		if !strings.Contains(url, "?") {
+			url = fmt.Sprintf("%s?%s", url, query)
+		} else {
+			url += query
+		}
+	}
+
 	resp, err := ing.client.Get(url)
 	if err != nil {
 		return data, err
@@ -68,11 +144,4 @@ func (ing *Ingresso) GetIngresso(url string, data interface{}) (interface{}, err
 	}
 
 	return data, errors.New(resp.Status)
-}
-
-// ToJSON converts data from struct to JSON
-func ToJSON(data interface{}) (string, error) {
-	r := []byte("{}")
-	r, err := json.MarshalIndent(data, "", "  ")
-	return string(r), err
 }
