@@ -2,7 +2,7 @@
 
 A Go wrapper for the API of [Ingresso.com](https://www.ingresso.com/).
 
-An **partnership code** is needed to use the API. Check if you can get one at [ingresso.com](https://suporte.ingresso.com/hc/pt-br/articles/115001166112-Integra%C3%A7%C3%A3o-com-a-API-de-Conte%C3%BAdo-).
+A **partnership code** is needed to use the API. Check if you can get one at [ingresso.com](https://suporte.ingresso.com/hc/pt-br/articles/115001166112-Integra%C3%A7%C3%A3o-com-a-API-de-Conte%C3%BAdo-).
 
 Note: This product uses the Ingresso.com API but is not endorsed or certified by Ingresso.com.
 
