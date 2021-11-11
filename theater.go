@@ -58,8 +58,17 @@ type TheatersResult struct {
 	Count int       `json:"count"`
 }
 
+// GetTheaters gets all theaters available
+// https://api-content.ingresso.com/v0/theaters/partnership/{partnership}
+func (ing *Ingresso) GetTheaters() (*TheatersResult, error) {
+	var theatersResult TheatersResult
+	url := fmt.Sprintf("%stheaters/partnership/%s", ing.BaseURL, ing.Partnership)
+	_, err := ing.getIngresso(url, &theatersResult)
+	return &theatersResult, err
+}
+
 // GetTheater gets a single theater
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Theaters/Theaters_GetByIdAsync
+// https://api-content.ingresso.com/v0/theaters/{id}/partnership/{partnership}
 func (ing *Ingresso) GetTheater(id string) (*Theater, error) {
 	var theater Theater
 	url := fmt.Sprintf("%stheaters/%s/partnership/%s", ing.BaseURL, id, ing.Partnership)
@@ -68,7 +77,7 @@ func (ing *Ingresso) GetTheater(id string) (*Theater, error) {
 }
 
 // GetTheaterByURLKey gets a single theater by his URLKey
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Theaters/Theaters_GetTheaterbySlugAsync
+// https://api-content.ingresso.com/v0/theaters​/url-key​/{uRLKey}​/partnership​/{partnership}
 func (ing *Ingresso) GetTheaterByURLKey(urlKey string) (*Theater, error) {
 	var theater Theater
 	url := fmt.Sprintf("%stheaters/url-key/%s/partnership/%s", ing.BaseURL, urlKey, ing.Partnership)
@@ -76,17 +85,8 @@ func (ing *Ingresso) GetTheaterByURLKey(urlKey string) (*Theater, error) {
 	return &theater, err
 }
 
-// GetTheaters gets all theaters available
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Theaters/Theaters_GetAsync
-func (ing *Ingresso) GetTheaters() (*TheatersResult, error) {
-	var theatersResult TheatersResult
-	url := fmt.Sprintf("%stheaters/partnership/%s", ing.BaseURL, ing.Partnership)
-	_, err := ing.getIngresso(url, &theatersResult)
-	return &theatersResult, err
-}
-
 // GetTheatersByCity gets all theaters by city
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Theaters/Theaters_GetByCityAsync
+// https://api-content.ingresso.com/v0/theaters/city/{cityId}/partnership/{partnership}
 func (ing *Ingresso) GetTheatersByCity(city string) (*TheatersResult, error) {
 	var theatersResult TheatersResult
 	url := fmt.Sprintf("%stheaters/city/%s/partnership/%s", ing.BaseURL, city, ing.Partnership)
