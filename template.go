@@ -9,7 +9,7 @@ type Template struct {
 }
 
 // GetSoonEvents gets all soon events
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Templates/Templates_GetSoonAsync
+// https://api-content.ingresso.com/v0/templates/soon/partnership/{partnership}
 func (ing *Ingresso) GetSoonEvents() (*Template, error) {
 	var template Template
 	url := fmt.Sprintf("%stemplates/soon/partnership/%s", ing.BaseURL, ing.Partnership)
@@ -18,7 +18,7 @@ func (ing *Ingresso) GetSoonEvents() (*Template, error) {
 }
 
 // GetSoonEventsByCity gets all soon events
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Templates/Templates_GetSoonByCityAsync
+// https://api-content.ingresso.com/v0/templates/soon/{cityId}/partnership/{partnership}
 func (ing *Ingresso) GetSoonEventsByCity(city string) (*Template, error) {
 	var template Template
 	url := fmt.Sprintf("%stemplates/soon/%s/partnership/%s", ing.BaseURL, city, ing.Partnership)
@@ -27,7 +27,7 @@ func (ing *Ingresso) GetSoonEventsByCity(city string) (*Template, error) {
 }
 
 // GetHighlightEvents gets all highlights events by city and theater
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Templates/Templates_GetHighlightsByCityAsync
+// https://api-content.ingresso.com/v0/templates/highlights/{cityId}/partnership/{partnership}
 func (ing *Ingresso) GetHighlightEvents(city string, options ...func(*QueryOptions)) (*Template, error) {
 	var template Template
 	url := fmt.Sprintf("%stemplates/highlights/%s/partnership/%s", ing.BaseURL, city, ing.Partnership)
@@ -36,7 +36,7 @@ func (ing *Ingresso) GetHighlightEvents(city string, options ...func(*QueryOptio
 }
 
 // GetNowPlayingEvents gets all now playing events
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Templates/Templates_GetNowPlayingAsync
+// https://api-content.ingresso.com/v0/templates/nowplaying/partnership/{partnership}
 func (ing *Ingresso) GetNowPlayingEvents(options ...func(*QueryOptions)) (*Template, error) {
 	var template Template
 	url := fmt.Sprintf("%stemplates/nowplaying/partnership/%s", ing.BaseURL, ing.Partnership)
@@ -45,7 +45,7 @@ func (ing *Ingresso) GetNowPlayingEvents(options ...func(*QueryOptions)) (*Templ
 }
 
 // GetNowPlayingEventsByCity gets all now playing events by city
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Templates/Templates_GetNowPlayingByCityAsync
+// https://api-content.ingresso.com/v0/templates/nowplaying/{cityId}/partnership/{partnership}
 func (ing *Ingresso) GetNowPlayingEventsByCity(city string, options ...func(*QueryOptions)) (*Template, error) {
 	var template Template
 	url := fmt.Sprintf("%stemplates/nowplaying/%s/partnership/%s", ing.BaseURL, city, ing.Partnership)
@@ -54,7 +54,7 @@ func (ing *Ingresso) GetNowPlayingEventsByCity(city string, options ...func(*Que
 }
 
 // GetPremiereEventsByCity gets all premiere events by city
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Templates/Templates_GetPremiereByCityAsync
+// https://api-content.ingresso.com/v0/templates/premiere/{cityId}/partnership/{partnership}
 func (ing *Ingresso) GetPremiereEventsByCity(city string) (*Template, error) {
 	var template Template
 	url := fmt.Sprintf("%stemplates/premiere/%s/partnership/%s", ing.BaseURL, city, ing.Partnership)
