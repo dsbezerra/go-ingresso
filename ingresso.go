@@ -92,8 +92,11 @@ func Skip(skip int) func(*QueryOptions) {
 // ToJSON converts data from struct to JSON
 func ToJSON(data interface{}) (string, error) {
 	r := []byte("{}")
-	r, err := json.MarshalIndent(data, "", "  ")
-	return string(r), err
+	json, err := json.MarshalIndent(data, "", "  ")
+	if err != nil {
+		return string(r), err
+	}
+	return string(json), err
 }
 
 // builds a query string from the given options
