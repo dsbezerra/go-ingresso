@@ -68,7 +68,7 @@ type EventsResult struct {
 }
 
 // GetEvents gets all events available
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Events/Events_GetAsync
+// https://api-content.ingresso.com/v0/events/partnership/{partnership}
 func (ing *Ingresso) GetEvents() (*EventsResult, error) {
 	var eventsResult EventsResult
 	url := fmt.Sprintf("%sevents/partnership/%s", ing.BaseURL, ing.Partnership)
@@ -77,7 +77,7 @@ func (ing *Ingresso) GetEvents() (*EventsResult, error) {
 }
 
 // GetEvent gets a single event
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Events/Events_Get
+// https://api-content.ingresso.com/v0/events/{id}/partnership/{partnership}
 func (ing *Ingresso) GetEvent(id string) (*Event, error) {
 	var event Event
 	url := fmt.Sprintf("%sevents/%s/partnership/%s", ing.BaseURL, id, ing.Partnership)
@@ -85,8 +85,8 @@ func (ing *Ingresso) GetEvent(id string) (*Event, error) {
 	return &event, err
 }
 
-// GetEventByURLKey gets a single event by his URLKey
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Events/Events_GetEventBySlugAsync
+// GetEventByURLKey gets a single event by its URLKey
+// https://api-content.ingresso.com/v0/events/url-key/{urlKey}/partnership/{partnership}
 func (ing *Ingresso) GetEventByURLKey(urlKey string) (*Event, error) {
 	var event Event
 	url := fmt.Sprintf("%sevents/url-key/%s/partnership/%s", ing.BaseURL, urlKey, ing.Partnership)
@@ -95,7 +95,7 @@ func (ing *Ingresso) GetEventByURLKey(urlKey string) (*Event, error) {
 }
 
 // GetComingSoonEvents gets coming soon events available
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Events/Events_GetComingSoonAsync
+// https://api-content.ingresso.com/v0//events/coming-soon/partnership/{partnership}
 func (ing *Ingresso) GetComingSoonEvents(options ...func(*QueryOptions)) (*EventsResult, error) {
 	var eventsResult EventsResult
 	url := fmt.Sprintf("%sevents/coming-soon/partnership/%s", ing.BaseURL, ing.Partnership)
@@ -104,7 +104,7 @@ func (ing *Ingresso) GetComingSoonEvents(options ...func(*QueryOptions)) (*Event
 }
 
 // GetEventsByCity gets all events available
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Events/Events_GetByCityAsync
+// https://api-content.ingresso.com/v0/events/city/{cityId}/partnership/{partnership}
 func (ing *Ingresso) GetEventsByCity(city string, options ...func(*QueryOptions)) (*EventsResult, error) {
 	var eventsResult EventsResult
 	url := fmt.Sprintf("%sevents/city/%s/partnership/%s", ing.BaseURL, city, ing.Partnership)
