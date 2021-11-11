@@ -54,7 +54,7 @@ type Day struct {
 }
 
 // GetSession gets a single session
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Sessions/Sessions_GetAsync
+// https://api-content.ingresso.com/v0/sessions/{id}/partnership/{partnership}
 func (ing *Ingresso) GetSession(id string) (*Session, error) {
 	var session Session
 	url := fmt.Sprintf("%ssessions/%s/partnership/%s", ing.BaseURL, id, ing.Partnership)
@@ -63,7 +63,7 @@ func (ing *Ingresso) GetSession(id string) (*Session, error) {
 }
 
 // GetSessionsByCityTheater gets a list of sessions by city and theater
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Sessions/Sessions_GetByCityTheaterAsync
+// https://api-content.ingresso.com/v0/sessions/city/{cityId}/theater/{theaterId}/partnership/{partnership}
 func (ing *Ingresso) GetSessionsByCityTheater(city, theater string, options ...func(*QueryOptions)) ([]Session, error) {
 	var sessions []Session
 	url := fmt.Sprintf("%ssessions/city/%s/theater/%s/partnership/%s", ing.BaseURL, city, theater, ing.Partnership)
@@ -72,7 +72,7 @@ func (ing *Ingresso) GetSessionsByCityTheater(city, theater string, options ...f
 }
 
 // GetSessionsByCityTheaterURLKey gets a list of sessions by city and theater's URLKey
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Sessions/Sessions_GetByCityTheaterUrlKeyAsync
+// https://api-content.ingresso.com/v0/sessions/city/{cityId}/theater/url-key/{theaterUrlKey}/partnership/{partnership}
 func (ing *Ingresso) GetSessionsByCityTheaterURLKey(city, theaterURLKey string, options ...func(*QueryOptions)) ([]Session, error) {
 	var sessions []Session
 	url := fmt.Sprintf("%ssessions/city/%s/theater/url-key/%s/partnership/%s", ing.BaseURL, city, theaterURLKey, ing.Partnership)
@@ -81,7 +81,7 @@ func (ing *Ingresso) GetSessionsByCityTheaterURLKey(city, theaterURLKey string, 
 }
 
 // GetSessionsByCityEvent gets a list of sessions by city and event
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Sessions/Sessions_GetByCityEventAsync
+// https://api-content.ingresso.com/v0/sessions/city/{cityId}/event/{eventId}/partnership/{partnership}
 func (ing *Ingresso) GetSessionsByCityEvent(city, event string, options ...func(*QueryOptions)) ([]Session, error) {
 	var sessions []Session
 	url := fmt.Sprintf("%ssessions/city/%s/event/%s/partnership/%s", ing.BaseURL, city, event, ing.Partnership)
@@ -89,8 +89,10 @@ func (ing *Ingresso) GetSessionsByCityEvent(city, event string, options ...func(
 	return sessions, err
 }
 
+// TODO(diego): https://api-content.ingresso.com/v0/sessions/event/{eventId}/partnership/{partnership}/streaming
+
 // GetSessionsByCityEventURLKey gets a list of sessions by city and event's URLKey
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Sessions/Sessions_GetByCityEventUrlKeyAsync
+// https://api-content.ingresso.com/v0/sessions/city/{cityId}/event/url-key/{eventUrlKey}/partnership/{partnership}
 func (ing *Ingresso) GetSessionsByCityEventURLKey(city, eventURLKey string, options ...func(*QueryOptions)) ([]Session, error) {
 	var sessions []Session
 	url := fmt.Sprintf("%ssessions/city/%s/event/url-key/%s/partnership/%s", ing.BaseURL, city, eventURLKey, ing.Partnership)
@@ -99,7 +101,7 @@ func (ing *Ingresso) GetSessionsByCityEventURLKey(city, eventURLKey string, opti
 }
 
 // GetSessionsDaysByCityTheater gets the dates that have sessions in the informed theater
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Sessions/Sessions_GetSessionsDaysByTheater
+// https://api-content.ingresso.com/v0/sessions/city/{cityId}/theater/{theaterId}/dates/partnership/{partnership}
 func (ing *Ingresso) GetSessionsDaysByCityTheater(city, theater string) ([]Day, error) {
 	var days []Day
 	url := fmt.Sprintf("%ssessions/city/%s/theater/%s/dates/partnership/%s", ing.BaseURL, city, theater, ing.Partnership)
@@ -108,10 +110,12 @@ func (ing *Ingresso) GetSessionsDaysByCityTheater(city, theater string) ([]Day, 
 }
 
 // GetSessionsDaysByCityEvent gets the available dates for the informed event
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Sessions/Sessions_GetSessionsDaysByEvent
+// https://api-content.ingresso.com/v0/sessions/city/{cityId}/event/{eventId}/dates/partnership/{partnership}
 func (ing *Ingresso) GetSessionsDaysByCityEvent(city, event string) ([]Day, error) {
 	var days []Day
 	url := fmt.Sprintf("%ssessions/city/%s/event/%s/dates/partnership/%s", ing.BaseURL, city, event, ing.Partnership)
 	_, err := ing.getIngresso(url, &days)
 	return days, err
 }
+
+// TODO(diego): https://api-content.ingresso.com/v0/sessions/url-key/{urlKey}/exists
