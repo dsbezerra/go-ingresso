@@ -95,7 +95,7 @@ func (ing *Ingresso) GetEventByURLKey(urlKey string) (*Event, error) {
 }
 
 // GetComingSoonEvents gets coming soon events available
-// https://api-content.ingresso.com/v0//events/coming-soon/partnership/{partnership}
+// https://api-content.ingresso.com/v0/events/coming-soon/partnership/{partnership}
 func (ing *Ingresso) GetComingSoonEvents(options ...func(*QueryOptions)) (*EventsResult, error) {
 	var eventsResult EventsResult
 	url := fmt.Sprintf("%sevents/coming-soon/partnership/%s", ing.BaseURL, ing.Partnership)
