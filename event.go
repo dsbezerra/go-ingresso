@@ -51,6 +51,14 @@ type Event struct {
 	} `json:"trailers"`
 	BoxOfficeID     string `json:"boxOfficeId"`
 	PartnershipType string `json:"partnershipType"`
+	RottenTomatoe   struct {
+		ID             string `json:"id"`
+		CriticsRating  string `json:"criticsRating"`
+		CriticsScore   string `json:"criticsScore"`
+		AudienceRating string `json:"audienceRating"`
+		AudienceScore  string `json:"audienceScore"`
+		OriginalURL    string `json:"originalUrl"`
+	} `json:"rottenTomatoe"`
 }
 
 // EventsResult struct
