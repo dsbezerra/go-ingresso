@@ -15,7 +15,7 @@ type Tag struct {
 }
 
 // GetTags Get all tags
-// https://api-content.ingresso.com/v0/swagger/ui/index#!/Tags/Tags_GetTagsAsync
+// https://api-content.ingresso.com/v0/tags/getAllTags
 func (ing *Ingresso) GetTags() ([]Tag, error) {
 	var tags []Tag
 	url := fmt.Sprintf("%stags/getAllTags", ing.BaseURL)
